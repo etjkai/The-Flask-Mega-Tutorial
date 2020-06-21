@@ -1,0 +1,34 @@
+Flask-SQLAlchemy
+- Flask friendly wrapper for SQL Alchemy
+
+SQL Alchemy
+- Object Relational Mapper: uses class / objects / methods instead of tables & SQL
+- Translate high level operations into db commants
+- ORM for multiple relational DBs (MySQL, PostgreSQL, SQLite)
+
+Flask-Migrate
+- Flask wrapper for Alembic (db migration for SQL Alchemy)
+
+1) Create a migration repository
+- flask db init
+
+2) Automatically generate migration script
+- flask db migrate -m "first migration"
+
+3) Apply changes to database
+- flask db upgrade
+    - Because this application uses SQLite, the upgrade command will detect that a database does not exist and will create it
+        - app.db (SQLite database) is added after this command finishes
+    - When working with database servers such as MySQL and PostgreSQL, you have to create the database in the database server before running upgrade.
+    - User -> user
+    - AddressAndPhone -> address_and_phone
+
+Changes to db
+- u = User(...)
+- db.session.add(u)
+- db.session.add(u2)
+- db.session.commit()
+
+Querying from db
+- users = User.query.all()
+- u = User.query.get(1)

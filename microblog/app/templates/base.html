@@ -1,0 +1,36 @@
+<html>
+
+<head>
+  {% if title %}
+  <title>{{ title }} - Microblog</title>
+  {% else %}
+  <title>Welcome to Microblog</title>
+  {% endif %}
+</head>
+
+
+<body>
+  <div>Microblog:
+    <!-- url_for('endpoint_name: name_of_view_function') -->
+    <a href="{{url_for('index')}}">Home</a>
+    <a href="{{url_for('login')}}">Login</a>
+  </div>
+  <hr>
+
+  <!-- Flashed Messages -->
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <ul>
+    {% for message in messages %}
+    <li>{{message}}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% endwith %}
+
+  <!-- Block Content -->
+  {% block content %}
+  {% endblock %}
+</body>
+
+</html>
