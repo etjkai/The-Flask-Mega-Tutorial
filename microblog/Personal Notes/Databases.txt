@@ -26,7 +26,7 @@ Flask-Migrate
 Changes to db
 - u = User(...)
 - db.session.add(u)
-- db.session.add(u2)
+- db.session.delete(u)
 - db.session.commit()
 
 Querying from db
