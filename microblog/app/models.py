@@ -2,6 +2,7 @@ from app import db, login
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+from hashlib import md5
 
 
 class User(UserMixin, db.Model):
@@ -14,6 +15,10 @@ class User(UserMixin, db.Model):
     ## Returns all the posts written by that user.
     # Adds 'author' attribute to posts - p.author = <User John>
     # backref argument defines the name of a field added to the objects of the "many" Class, that then points back at the "one" object.
+    
+    # Additional information in User Profiles
+    about_me = db.Column(db.String(140))
+    last_seen = db.Column(db.DateTime, default = datetime.utcnow)
 
     def set_password(self, password):
         # Sets the instance attribute
@@ -24,6 +29,11 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return f"<User {self.username}>"
+
+    # Returns link to avatar at gravatar
+    def avatar(self, size):
+        digest = md5(self.email.lower().encode("utf-8")).hexdigest()
+        return f"https://www.gravatar.com/avatar/{digest}?d=identicon&s={size}"
 
 
 class Post(db.Model):
